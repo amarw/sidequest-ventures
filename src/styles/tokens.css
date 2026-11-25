@@ -1,0 +1,52 @@
+/* SideQuest Ventures design tokens, generated from tokens.json */
+:root, [data-theme="light"] {
+  --bg: #F2F6FB;
+  --surface: #FFFFFF;
+  --surface-muted: #E6EDF6;
+  --ink: #0B1020;
+  --ink-muted: #3C4660;
+  --accent: #0072C6;
+  --accent-strong: #00508C;
+  --on-accent: #FFFFFF;
+  --hairline: #D5DCE8;
+  --border-strong: #7A869E;
+  --brand-navy: #0B1020;
+  --brand-arctic: #0072C6;
+  --brand-frost: #F2F6FB;
+  --brand-violet-deep: #120A2A;
+  --brand-ultraviolet: #B28CFF;
+  --brand-mist: #F4EFFF;
+  --shadow-card: 0 1px 2px rgba(11,16,32,0.06), 0 12px 32px rgba(11,16,32,0.08);
+}
+[data-theme="dark"] {
+  --bg: #120A2A;
+  --surface: #1B1238;
+  --surface-muted: #241A48;
+  --ink: #F4EFFF;
+  --ink-muted: #C3B8E0;
+  --accent: #B28CFF;
+  --accent-strong: #D6C2FF;
+  --on-accent: #120A2A;
+  --hairline: #342A5C;
+  --border-strong: #7D6FAE;
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.4), 0 12px 32px rgba(0,0,0,0.45);
+}
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --space-32: 128px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}

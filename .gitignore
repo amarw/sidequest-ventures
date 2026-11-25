@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.DS_Store
+
+# Design source files: kept locally, never committed or deployed
+docs/
