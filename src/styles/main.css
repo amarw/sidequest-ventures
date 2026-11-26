@@ -87,18 +87,23 @@ h1, h2, h3, p { margin: 0; }
 
 /* iOS browsers (all WebKit) with the address bar at the bottom let page content scroll
    under the status bar, which leaves a strip of blurred content above any fixed bar at
-   top: 0. WebKit fills the status bar with the colour of a full-width fixed bar at the
-   top, but only if it is tall enough (12px works; 4px does not). This band
-   gives WebKit that bar, so the status bar area runs unbroken down to the progress line. */
+   top: 0. WebKit fills the status bar with the background colour of a full-width fixed
+   bar at the top, but only if it is tall enough (12px works; 4px does not). This band
+   gives WebKit that bar. It is solid page colour at the top, so it meets the filled status
+   bar with no seam, and fades into frosted glass just above the progress line, so content
+   scrolling underneath shows through blurred. */
 .topglass { display: none; }
 @supports (-webkit-touch-callout: none) {
   .topglass {
-    display: block; position: fixed; inset: 0 0 auto 0; height: 12px; z-index: 49;
-    /* Solid page colour: WebKit paints the status bar with this colour, so a translucent
-       band would leave a visible seam where content shows through it. */
-    pointer-events: none; background: var(--bg);
+    display: block; position: fixed; inset: 0 0 auto 0; height: 24px; z-index: 49;
+    pointer-events: none; background-color: rgba(242, 246, 251, .35);
+    -webkit-backdrop-filter: blur(3px) saturate(160%); backdrop-filter: blur(3px) saturate(160%);
   }
-  .progress { top: 9px; }
+  .topglass::before {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(to bottom, var(--bg) 15%, rgba(242, 246, 251, 0) 85%);
+  }
+  .progress { top: 21px; }
 }
 
 /* Header */
