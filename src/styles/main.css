@@ -141,9 +141,11 @@ h1, h2, h3, p { margin: 0; }
 .hx-l2 { animation: hx-label .4s cubic-bezier(.4,0,.2,1) 2.65s both; }
 .hx-b3m { stroke-dasharray: 194 400; animation: hx-draw-branch .6s cubic-bezier(.65,0,.35,1) 2.95s both; }
 .hx-nw { transform-box: fill-box; transform-origin: center; animation: hx-settle .4s cubic-bezier(.4,0,.2,1) 3.55s both; }
-.hx-next { animation: hx-spin 16s linear 4s infinite; }
+/* Rotate with transform (compositor-only) rather than animating stroke-dashoffset,
+   which repaints on every frame and competes with scrolling. */
+.hx-next { transform-box: fill-box; transform-origin: center; animation: hx-spin 32s linear 4s infinite; }
 .hx-l3 { animation: hx-label .35s cubic-bezier(.4,0,.2,1) 3.65s both; }
-.hx-spin-only { animation: hx-spin 16s linear infinite; }
+.hx-spin-only { transform-box: fill-box; transform-origin: center; animation: hx-spin 32s linear infinite; }
 
 /* Section rule */
 .rule { display: flex; align-items: center; margin: 0 auto clamp(48px, 5vw, 72px); }
@@ -151,7 +153,9 @@ h1, h2, h3, p { margin: 0; }
 .rule__line { flex-grow: 1; height: 1px; background: var(--hairline); }
 
 /* About */
-.about { position: relative; overflow: hidden; padding-bottom: clamp(96px, 11vw, 160px); }
+/* overflow: clip (not hidden) so About is not its own scroll container; otherwise its
+   scroll-driven reveals track the section instead of the page and stutter. */
+.about { position: relative; overflow: hidden; overflow: clip; padding-bottom: clamp(96px, 11vw, 160px); }
 .bigtype {
   position: absolute; left: max(8px, 3vw); bottom: -0.2em; z-index: 0;
   font-family: var(--font-display); font-size: clamp(150px, 20vw, 300px); font-weight: 600;
@@ -255,7 +259,7 @@ h1, h2, h3, p { margin: 0; }
 @keyframes hx-draw-branch { from { stroke-dashoffset: 194; } to { stroke-dashoffset: 0; } }
 @keyframes hx-settle { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: scale(1); } }
 @keyframes hx-label { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: translateX(0); } }
-@keyframes hx-spin { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -60; } }
+@keyframes hx-spin { to { transform: rotate(360deg); } }
 @keyframes hx-fade { from { opacity: 0; } to { opacity: 1; } }
 
 /* Phone */
