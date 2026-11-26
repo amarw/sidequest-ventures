@@ -85,6 +85,22 @@ h1, h2, h3, p { margin: 0; }
 }
 @supports not (animation-timeline: scroll()) { .progress { display: none; } }
 
+/* iOS browsers (all WebKit) with the address bar at the bottom let page content scroll
+   under the status bar, which leaves a strip of blurred content above any fixed bar at
+   top: 0. WebKit fills the status bar with the colour of a full-width fixed bar at the
+   top, but only if it is tall enough (12px works; 4px does not). This band
+   gives WebKit that bar, so the status bar area runs unbroken down to the progress line. */
+.topglass { display: none; }
+@supports (-webkit-touch-callout: none) {
+  .topglass {
+    display: block; position: fixed; inset: 0 0 auto 0; height: 12px; z-index: 49;
+    /* Solid page colour: WebKit paints the status bar with this colour, so a translucent
+       band would leave a visible seam where content shows through it. */
+    pointer-events: none; background: var(--bg);
+  }
+  .progress { top: 9px; }
+}
+
 /* Header */
 .header { padding: 20px var(--gutter); border-bottom: 1px solid var(--hairline); background: var(--bg); }
 .header__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; }
