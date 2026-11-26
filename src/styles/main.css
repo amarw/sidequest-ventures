@@ -1,6 +1,9 @@
 @import './tokens.css';
+@import './fonts.css';
 
 :root {
+  --font-display: "Space Grotesk", "Space Grotesk Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: Inter, "Inter Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --ease: cubic-bezier(.2, .7, .2, 1);
   --gutter: max(16px, 4vw);
   --content: 1200px;
@@ -109,7 +112,6 @@ h1, h2, h3, p { margin: 0; }
   flex: 1 1 400px; min-width: 0; display: flex; justify-content: center; padding: 24px 0;
   position: relative; isolation: isolate;
 }
-.hx-stage > svg { width: 100%; max-width: 480px; height: auto; overflow: visible; }
 .hx-stage::before {
   content: ""; position: absolute; inset: -6% -4%; z-index: -1;
   background-image: radial-gradient(circle, var(--dots) 1.3px, transparent 1.8px);
@@ -140,12 +142,18 @@ h1, h2, h3, p { margin: 0; }
 .hx-w2 { transform-box: fill-box; transform-origin: center; animation: hx-settle .4s cubic-bezier(.4,0,.2,1) 2.55s both; }
 .hx-l2 { animation: hx-label .4s cubic-bezier(.4,0,.2,1) 2.65s both; }
 .hx-b3m { stroke-dasharray: 194 400; animation: hx-draw-branch .6s cubic-bezier(.65,0,.35,1) 2.95s both; }
-.hx-nw { transform-box: fill-box; transform-origin: center; animation: hx-settle .4s cubic-bezier(.4,0,.2,1) 3.55s both; }
-/* Rotate with transform (compositor-only) rather than animating stroke-dashoffset,
-   which repaints on every frame and competes with scrolling. */
-.hx-next { transform-box: fill-box; transform-origin: center; animation: hx-spin 32s linear 4s infinite; }
+/* The spinning rings are standalone <svg> boxes, not shapes inside a larger SVG:
+   browsers can only run transform animations on the GPU compositor for CSS boxes.
+   Animating a shape inside the hero SVG forced layout + repaint on every frame. */
+.hx-art { position: relative; width: 100%; max-width: 480px; }
+.hx-art > svg { display: block; width: 100%; height: auto; overflow: visible; }
+.hx-next {
+  position: absolute; left: 55.2083%; top: 4.6154%; width: 8.75%; height: 8.0769%;
+  animation: hx-settle .4s cubic-bezier(.4,0,.2,1) 3.55s both;
+}
+.hx-next > svg { display: block; width: 100%; height: 100%; animation: hx-spin 32s linear 4s infinite; }
 .hx-l3 { animation: hx-label .35s cubic-bezier(.4,0,.2,1) 3.65s both; }
-.hx-spin-only { transform-box: fill-box; transform-origin: center; animation: hx-spin 32s linear infinite; }
+.hx-spin-only { animation: hx-spin 32s linear infinite; }
 
 /* Section rule */
 .rule { display: flex; align-items: center; margin: 0 auto clamp(48px, 5vw, 72px); }
@@ -189,11 +197,23 @@ h1, h2, h3, p { margin: 0; }
 .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 24px; }
 .card {
   background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius-lg);
-  overflow: hidden; display: flex; flex-direction: column;
-  transition: transform .22s var(--ease), box-shadow .22s, border-color .22s;
+  position: relative; isolation: isolate; display: flex; flex-direction: column;
+  transition: transform .22s var(--ease);
 }
-.card:hover { transform: translateY(-4px); border-color: var(--border-strong); box-shadow: var(--shadow-card); }
-.card__media { position: relative; background: var(--surface-muted); aspect-ratio: 16 / 10; overflow: hidden; }
+/* Hover border and shadow live on pseudo-elements and only fade their opacity, so the
+   whole hover runs on the compositor (transform + opacity) with no repaint. */
+.card::before, .card::after, .email::before, .email::after {
+  content: ""; position: absolute; inset: -1px; border-radius: inherit;
+  pointer-events: none; opacity: 0; transition: opacity .22s var(--ease);
+}
+.card::before { border: 1px solid var(--border-strong); z-index: 2; }
+.card::after, .email::after { box-shadow: var(--shadow-card); z-index: -1; }
+.card:hover { transform: translateY(-4px); }
+.card:hover::before, .card:hover::after { opacity: 1; }
+.card__media {
+  position: relative; background: var(--surface-muted); aspect-ratio: 16 / 10; overflow: hidden;
+  border-radius: calc(var(--radius-lg) - 1px) calc(var(--radius-lg) - 1px) 0 0;
+}
 .card__photo { width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease); }
 .card:hover .card__photo { transform: scale(1.04); }
 .card__badge {
@@ -209,9 +229,10 @@ h1, h2, h3, p { margin: 0; }
 .card-link:hover { color: var(--accent-strong); }
 .card--next {
   background: transparent; border: 1.5px dashed var(--border-strong);
-  justify-content: space-between; gap: 24px; padding: 32px; min-height: 280px; overflow: visible;
+  justify-content: space-between; gap: 24px; padding: 32px; min-height: 280px;
 }
-.card--next:hover { transform: none; box-shadow: none; }
+.card--next::before, .card--next::after { content: none; }
+.card--next:hover { transform: none; }
 
 /* Contact */
 .contact__inner { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
@@ -222,9 +243,11 @@ h1, h2, h3, p { margin: 0; }
   color: var(--ink); text-decoration: none; font-family: var(--font-display);
   font-size: clamp(16px, 2.6vw, 30px); font-weight: 600; letter-spacing: -0.01em;
   max-width: 100%; overflow-wrap: anywhere;
-  transition: border-color .2s var(--ease), transform .2s var(--ease), box-shadow .2s;
+  position: relative; isolation: isolate; transition: transform .2s var(--ease);
 }
-.email:hover { color: var(--ink); border-color: var(--accent); transform: translateY(-2px); box-shadow: var(--shadow-card); }
+.email::before { border: 1px solid var(--accent); }
+.email:hover { color: var(--ink); transform: translateY(-2px); }
+.email:hover::before, .email:hover::after { opacity: 1; }
 .email svg { flex-shrink: 0; }
 
 /* Footer */
@@ -276,7 +299,8 @@ h1, h2, h3, p { margin: 0; }
 
 /* Touch devices: no sticky hover lift */
 @media (hover: none) {
-  .card:hover, .email:hover { transform: none; box-shadow: none; }
+  .card:hover, .email:hover { transform: none; }
+  .card:hover::after, .email:hover::after { opacity: 0; }
   .card:hover .card__photo { transform: none; }
 }
 

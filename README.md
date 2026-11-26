@@ -13,7 +13,8 @@ npm run preview
 
 - `index.html`: the page
 - `src/styles/`: `tokens.css` (design-system tokens) and `main.css`
-- `src/assets/images/`: venture photos (hashed into `dist/assets/` at build)
+- `src/assets/images/`: venture photos at 800, 1200 and 1586px wide; the browser picks one via `srcset`
+- `src/assets/fonts/`: self-hosted Inter and Space Grotesk (latin, variable, SIL OFL), preloaded from `index.html`
 - `src/assets/static/`: favicons, manifest and `og-image.png`, copied as-is to the site root
 
 ## Deployment (GitHub Pages)

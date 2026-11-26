@@ -27,9 +27,8 @@
 <meta name="twitter:description" content="Every venture starts as a side quest. An independent venture studio from Pune.">
 <meta name="twitter:image" content="https://www.sidequestventures.in/og-image.png">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap">
+<link rel="preload" href="/src/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/src/assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/src/styles/main.css">
 </head>
 <body>
@@ -64,17 +63,19 @@
       </div>
     </div>
     <div class="hx-stage">
+      <div class="hx-art">
       <svg viewBox="0 0 480 520" role="img" aria-label="A main path with two branches leading to LayerWeaver and Anubias Tech, and a third dashed branch to the next venture">
 <path class="hx-stem" d="M140 500 V24" stroke="#0B1020" stroke-width="14" stroke-linecap="round" fill="none"></path>
 <path class="hx-b1" d="M140 420 C140 342 197 316 265 293" stroke="#0072C6" stroke-width="14" stroke-linecap="round" fill="none"></path>
 <path class="hx-b2" d="M140 300 C140 222 197 196 265 173" stroke="#0072C6" stroke-width="14" stroke-linecap="round" fill="none"></path>
 <mask id="hxb3mask" maskUnits="userSpaceOnUse" x="0" y="0" width="480" height="520"><path class="hx-b3m" d="M140 180 C140 102 197 76 265 53" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round" fill="none"></path></mask>
 <path d="M140 180 C140 102 197 76 265 53" stroke="#7A869E" stroke-width="6" stroke-linecap="round" stroke-dasharray="2 14" fill="none" mask="url(#hxb3mask)"></path>
-<g class="hx-nw"><circle class="hx-next" cx="286" cy="45" r="18" fill="none" stroke="#7A869E" stroke-width="3" stroke-dasharray="6 9"></circle></g>
 <a class="hx-hit" href="#ventures" aria-label="LayerWeaver, 3D printing. Go to ventures"><rect x="256" y="251" width="224" height="76" fill="#F2F6FB" fill-opacity="0"></rect><g class="hx-w1"><g class="hx-dot"><circle class="hx-ring" cx="286" cy="285" r="20" fill="#0072C6"></circle><circle cx="286" cy="285" r="7" fill="#F2F6FB"></circle></g></g><g class="hx-l1"><text class="hx-name" x="320" y="281" font-family="Space Grotesk, sans-serif" font-size="20" font-weight="600" fill="#0B1020">LayerWeaver</text><text x="320" y="305" font-family="Inter, sans-serif" font-size="13" fill="#3C4660">3D printing</text></g><text class="hx-desc" x="320" y="323" font-family="Inter, sans-serif" font-size="12" font-weight="500" fill="#0072C6">Printed to order →</text></a>
 <a class="hx-hit" href="#ventures" aria-label="Anubias Tech, software. Go to ventures"><rect x="256" y="131" width="224" height="76" fill="#F2F6FB" fill-opacity="0"></rect><g class="hx-w2"><g class="hx-dot"><circle class="hx-ring" cx="286" cy="165" r="20" fill="#0072C6"></circle><circle cx="286" cy="165" r="7" fill="#F2F6FB"></circle></g></g><g class="hx-l2"><text class="hx-name" x="320" y="161" font-family="Space Grotesk, sans-serif" font-size="20" font-weight="600" fill="#0B1020">Anubias Tech</text><text x="320" y="185" font-family="Inter, sans-serif" font-size="13" fill="#3C4660">Software</text></g><text class="hx-desc" x="320" y="203" font-family="Inter, sans-serif" font-size="12" font-weight="500" fill="#0072C6">Built end to end →</text></a>
 <g class="hx-l3"><text x="320" y="41" font-family="Space Grotesk, sans-serif" font-size="16" font-weight="500" fill="#3C4660">Next quest</text><text x="320" y="61" font-family="Inter, sans-serif" font-size="13" fill="#3C4660">In the works</text></g>
 </svg>
+      <div class="hx-next" aria-hidden="true"><svg viewBox="0 0 42 42"><circle cx="21" cy="21" r="18" fill="none" stroke="#7A869E" stroke-width="3" stroke-dasharray="6 9"/></svg></div>
+      </div>
     </div>
   </div>
 </section>
@@ -137,7 +138,7 @@
     <div class="reveal cards">
       <article class="card">
         <div class="card__media">
-          <img class="card__photo" src="/src/assets/images/layerweaver-lamp.webp" width="1586" height="992" loading="lazy" decoding="async" alt="A glowing 3D-printed hexagonal lattice lamp on a pale surface">
+          <img class="card__photo" src="/src/assets/images/layerweaver-lamp-800.webp" srcset="/src/assets/images/layerweaver-lamp-800.webp 800w, /src/assets/images/layerweaver-lamp-1200.webp 1200w, /src/assets/images/layerweaver-lamp.webp 1586w" sizes="(min-width: 1100px) 384px, (min-width: 720px) 50vw, 100vw" width="1586" height="992" loading="lazy" decoding="async" alt="A glowing 3D-printed hexagonal lattice lamp on a pale surface">
           <div class="card__badge">
             <svg viewBox="-6 -6 380 482" role="img" aria-label="LayerWeaver logo" fill="none" height="36" width="29"><path d="M184.001 34L340.001 124V304L184.001 394L28.0007 304V124L184.001 34Z" stroke="#0B1020" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"></path>
 <path d="M184.001 104L279.001 159V269L184.001 324L89.0007 269V159L184.001 104Z" stroke="#0B1020" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -172,7 +173,7 @@
 
       <article class="card">
         <div class="card__media">
-          <img class="card__photo" src="/src/assets/images/anubias-workspace.webp" width="1586" height="992" loading="lazy" decoding="async" alt="A laptop showing code and a mobile app design on a bright desk">
+          <img class="card__photo" src="/src/assets/images/anubias-workspace-800.webp" srcset="/src/assets/images/anubias-workspace-800.webp 800w, /src/assets/images/anubias-workspace-1200.webp 1200w, /src/assets/images/anubias-workspace.webp 1586w" sizes="(min-width: 1100px) 384px, (min-width: 720px) 50vw, 100vw" width="1586" height="992" loading="lazy" decoding="async" alt="A laptop showing code and a mobile app design on a bright desk">
           <div class="card__badge">
             <svg viewBox="0 0 120 120" role="img" aria-label="Anubias Tech logo" width="34" height="34">
               <path d="M92 4 C60 14 22 38 15 70 C10 96 26 112 45 114 C47 72 60 38 92 4 Z" fill="#7DB7E8"/>
@@ -192,7 +193,7 @@
       </article>
 
       <article class="card card--next">
-        <svg width="56" height="56" viewBox="0 0 56 56" aria-hidden="true"><circle class="hx-spin-only" cx="28" cy="28" r="20" fill="none" stroke="#0072C6" stroke-width="3" stroke-dasharray="6 9"/></svg>
+        <svg class="hx-spin-only" width="56" height="56" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="20" fill="none" stroke="#0072C6" stroke-width="3" stroke-dasharray="6 9"/></svg>
         <div class="stack-12">
           <div class="card__kicker">In the works</div>
           <h3 class="card__title">The next quest</h3>
